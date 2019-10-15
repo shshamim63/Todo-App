@@ -1,9 +1,16 @@
+body {
+  background: url(./homepage.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+
 .header {
-  height: 8vh;
+  height: 15vh;
 }
 
 .header-text {
   padding-top: 1vh;
+  font-family: 'Zhi Mang Xing', cursive;
+  font-size: 10vh;
 }
 
 .project-list {
@@ -25,5 +32,29 @@
   width: 50%;
   height: 50%;
   margin-left: 60%;
+}
+
+.todo-delete-img {
+  height: 5%;
+}
+
+.todo-edit-img {
+  height: 10%;
+}
+
+.bg-complete {
+  background-color: #f7f55c;
+}
+
+.bg-incomplete {
+  background-color: #00ff84;
+}
+
+.card {
+  background-color: rgba(245, 245, 245, 0.4);
+}
+
+.card-header, .card-footer {
+  opacity: 1;
 }
 /*# sourceMappingURL=main.css.map */
