@@ -15,4 +15,15 @@
   height: 60vh;
   overflow: auto;
 }
+
+.btn-delete {
+  width: 15%;
+  margin: auto;
+}
+
+.btn-delete-img {
+  width: 50%;
+  height: 50%;
+  margin-left: 60%;
+}
 /*# sourceMappingURL=main.css.map */
