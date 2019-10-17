@@ -4,7 +4,7 @@
   "description": "This project is build on the concept of Object Oriented Programming",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "eslint": "eslint --fix"
   },
   "repository": {
     "type": "git",
