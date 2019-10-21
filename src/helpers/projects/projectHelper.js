@@ -1,9 +1,9 @@
-import * as localStorageData from '../common/storage'
-import projectinput from './projectInput'
-import projectController from '../../controllers/projectController'
+import * as localStorageData from '../common/storage.js'
+import projectinput from './projectInput.js'
+import projectController from '../../controllers/projectController.js'
 
 const projectHelper = (() => {
-  const currentSelectedProject;
+  const currentSelectedProject= 0;
 
   const createProjectsArray = () => {
       if (localStorageData.getDataFromLocalStorage("projectsArray") === null) {
@@ -13,12 +13,18 @@ const projectHelper = (() => {
   };
 
   const setDefaultProject = () => {
-    const defaultProject = projectController.create(projectinput.createProjectId(),projectinput.getProjectName());
+    currentSelectedProject = projectinput.createProjectId();
+    const defaultProject = projectController.create(currentSelectedProject, 'Default'); 
     const projectsArray = localStorageData.getDataFromLocalStorage('projectsArray');
     projectsArray.push(defaultProject);
     localStorageData.removeDataFromLocalStorage('projectsArray');
-    localStorageData.setDataIntoLocalStorage('projectsArray', projectsArray); 
+    localStorageData.setDataIntoLocalStorage('projectsArray', projectsArray);
   };
+  return {
+    createProjectsArray,
+    setDefaultProject,
+    currentSelectedProject
+  }
 })();
 
 export default projectHelper;

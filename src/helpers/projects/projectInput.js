@@ -7,5 +7,9 @@ const projectinput = (() => {
     const name = document.querySelector('#project-name').nodeValue;
     return name;
   };
+  return {
+    createProjectId,
+    getProjectName
+  };
 })();
 export default projectinput;

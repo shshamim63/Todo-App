@@ -1,8 +1,11 @@
-import Project from '../model/project'
+import Project from '../model/project.js'
 const projectController = (() => {
   const create = (id,name) => {
-    const newProject = Poject(id,name);
+    const newProject = Project(id,name);
     return newProject;
+  };
+  return {
+    create
   };
 })();
 

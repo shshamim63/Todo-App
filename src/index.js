@@ -1,7 +1,5 @@
-import {
-    createProjectsArray,
-    setDefaultProject
-} from './helpers/projects/projectHelper'
-
-createProjectsArray();
-setDefaultProject();
+import projectHelper from './helpers/projects/projectHelper.js'
+import displayProject from './view/projectDisplay.js'
+projectHelper.createProjectsArray();
+projectHelper.setDefaultProject();
+displayProject.renderProject();
