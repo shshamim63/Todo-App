@@ -6,19 +6,24 @@ const projectHelper = (() => {
   const currentSelectedProject= 0;
 
   const createProjectsArray = () => {
-      if (localStorageData.getDataFromLocalStorage("projectsArray") === null) {
-        let projectsArray = [];
-        localStorageData.setDataIntoLocalStorage("projectsArray", projectsArray);
-      }
+    if (localStorageData.getDataFromLocalStorage("projectsArray") === null) {
+      let projectsArray = [];
+      localStorageData.setDataIntoLocalStorage("projectsArray", projectsArray);
+      localStorageData.setDataIntoLocalStorage("projectCount", 0);
+    }
   };
 
   const setDefaultProject = () => {
-    currentSelectedProject = projectinput.createProjectId();
-    const defaultProject = projectController.create(currentSelectedProject, 'Default'); 
     const projectsArray = localStorageData.getDataFromLocalStorage('projectsArray');
-    projectsArray.push(defaultProject);
-    localStorageData.removeDataFromLocalStorage('projectsArray');
-    localStorageData.setDataIntoLocalStorage('projectsArray', projectsArray);
+    const projectCount = localStorageData.getDataFromLocalStorage('projectCount');
+    if (projectCount === 0) {
+      const currentSelectedProject = projectinput.createProjectId();
+      const defaultProject = projectController.create(currentSelectedProject, 'Default'); 
+      projectsArray.push(defaultProject);
+      localStorageData.setDataIntoLocalStorage('projectsArray', projectsArray);
+      localStorageData.setDataIntoLocalStorage('currentProject', defaultProject);
+      localStorageData.setDataIntoLocalStorage('projectCount', projectCount+1);
+    }
   };
   return {
     createProjectsArray,

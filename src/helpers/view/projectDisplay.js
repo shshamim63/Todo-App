@@ -1,5 +1,5 @@
-import projectHelper from '../helpers/projects/projectHelper';
-import imageDelete from '';
+import * as localStorageData from '../common/storage.js';
+
 const displayProject = (() => {
   const renderProjectListItem = element => {
     // <li class="list-group-item bg-complete"> 
@@ -7,7 +7,7 @@ const displayProject = (() => {
     //           <i class="float-right btn-delete"><img src="./assets/delete.png" alt="" class="btn-delete-img"></i>
     //         </li>
     const projectList = document.createElement('li');
-    if(element.id == projectHelper.currentSelectedProject){
+    if(element.id == localStorageData.getDataFromLocalStorage('currentProject').id){
       projectList.classList.add('list-group-item','bg-complete');
     } else {
       projectList.classList.add('list-group-item');
@@ -22,16 +22,25 @@ const displayProject = (() => {
     deleteIcon.classList.add('float-right', 'btn-delete');
 
     const deleteImage = document.createElement('img');
-    deleteImage.src = imageDelete;
+    deleteImage.src = "../../assets/images/delete.png";
     deleteImage.classList.add('btn-delete-img');
+    deleteIcon.appendChild(deleteImage);
+    projectList.appendChild(projectTitle);
+    projectList.appendChild(deleteIcon);
+    return projectList;
   };
-  const renderProject= () =>{
-    const projectArrays = localStorage.getDataFromLocalStorage('projectsArray');
-    if (projectArrays.length > 0){
+  const renderProject= () => {
+    const projectsArray = localStorageData.getDataFromLocalStorage('projectsArray');
+    if (projectsArray.length > 0){
       const projectListContainter = document.querySelector('#project-list')
-      projectArrays.forEach(element => {
-        renderProjectListItem(element);
+      projectsArray.forEach(element => {
+        projectListContainter.appendChild(renderProjectListItem(element));
       });
     }
   };
+  return {
+    renderProject
+  };
 })();
+
+export default displayProject;
