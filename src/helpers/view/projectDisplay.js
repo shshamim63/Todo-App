@@ -1,11 +1,17 @@
 import * as localStorageData from '../common/storage.js';
 
 const displayProject = (() => {
+  const selectProject = (targetId) => {
+    const projectList = document.querySelectorAll('li');
+    projectList.forEach(element => {
+      const elementId = element.id.split('-')[1];
+      element.classList.remove('bg-complete');
+      if (elementId === targetId.toString()) {
+        element.classList.add('bg-complete');
+      }
+    });
+  };
   const renderProjectListItem = element => {
-    // <li class="list-group-item bg-complete"> 
-    //           <p class="d-inline">Project 1</p>
-    //           <i class="float-right btn-delete"><img src="./assets/delete.png" alt="" class="btn-delete-img"></i>
-    //         </li>
     const projectList = document.createElement('li');
     if(element.id == localStorageData.getDataFromLocalStorage('currentProject').id){
       projectList.classList.add('list-group-item','bg-complete');
@@ -22,8 +28,9 @@ const displayProject = (() => {
     deleteIcon.classList.add('float-right', 'btn-delete');
 
     const deleteImage = document.createElement('img');
-    deleteImage.src = "../../assets/images/delete.png";
+    deleteImage.src = "./assets/images/delete.png";
     deleteImage.classList.add('btn-delete-img');
+    deleteImage.setAttribute("id", `projectdelete-${element.id}`);
     deleteIcon.appendChild(deleteImage);
     projectList.appendChild(projectTitle);
     projectList.appendChild(deleteIcon);
@@ -34,6 +41,10 @@ const displayProject = (() => {
     if (projectsArray.length > 0){
       const projectListContainter = document.querySelector('#project-list')
       projectsArray.forEach(element => {
+        const appendproject = renderProjectListItem(element);
+        appendproject.addEventListener('click', () => {
+          selectProject(element.id);
+        });
         projectListContainter.appendChild(renderProjectListItem(element));
       });
     }
