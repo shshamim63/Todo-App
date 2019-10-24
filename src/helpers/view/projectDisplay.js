@@ -49,9 +49,20 @@ const displayProject = (() => {
       });
     }
   };
+  const addProjectBtn = () => {
+    const projectsArray = localStorageData.getDataFromLocalStorage('projectsArray');
+    const projectCount = localStorageData.getDataFromLocalStorage('projectCount');
+    const projectId = projectinput.createProjectId();
+    const projectName = projectinput.getProjectName();
+    const newProject = projectController.create(projectId, projectName); 
+    projectsArray.push(newProject);
+    localStorageData.setDataIntoLocalStorage('projectsArray', projectsArray);
+    localStorageData.setDataIntoLocalStorage('currentProject', newProject);
+    localStorageData.setDataIntoLocalStorage('projectCount', projectCount+1);
+  };
   const enableProjectAddBtn = () => {
     const addProjectBtn = document.querySelector('#add-project');
-    addProjectBtn.addEventListener('click', () =>{
+    addProjectBtn.addEventListener('click', () => {
       addProjectBtn();
       renderProject();
     });
