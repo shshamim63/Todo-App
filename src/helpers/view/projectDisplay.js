@@ -36,7 +36,7 @@ const displayProject = (() => {
     projectList.appendChild(deleteIcon);
     return projectList;
   };
-  const renderProject= () => {
+  const renderProject = () => {
     const projectsArray = localStorageData.getDataFromLocalStorage('projectsArray');
     if (projectsArray.length > 0){
       const projectListContainter = document.querySelector('#project-list')
@@ -49,7 +49,19 @@ const displayProject = (() => {
       });
     }
   };
+  const enableProjectAddBtn = () => {
+    const addProjectBtn = document.querySelector('#add-project');
+    addProjectBtn.addEventListener('click', () =>{
+      addProjectBtn();
+      renderProject();
+    });
+  };
+  const initializeProjectOperation = () =>{
+    enableProjectAddBtn();
+    renderProject();
+  };
   return {
+    initializeProjectOperation,
     renderProject
   };
 })();

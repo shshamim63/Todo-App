@@ -3,8 +3,6 @@ import projectinput from './projectInput.js'
 import projectController from '../../controllers/projectController.js'
 
 const projectHelper = (() => {
-  const currentSelectedProject= 0;
-
   const createProjectsArray = () => {
     if (localStorageData.getDataFromLocalStorage("projectsArray") === null) {
       let projectsArray = [];
