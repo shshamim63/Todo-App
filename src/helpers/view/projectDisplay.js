@@ -2,25 +2,39 @@ import * as localStorageData from '../common/storage.js';
 import projectInput from '../projects/projectInput.js'
 import projectController from '../../controllers/projectController.js'
 const displayProject = (() => {
-  const selectProject = (targetId) => {
-    const projectList = document.querySelectorAll('li');
-    projectList.forEach(element => {
-      const elementId = element.id.split('-')[1];
+  const disableSelectedProject = () =>{
+    const projectLists = document.querySelectorAll('.list-group-item');
+    projectLists.forEach(element => {
       element.classList.remove('bg-complete');
-      if (elementId === targetId.toString()) {
+    });
+  };
+  const highlightCurrentProject = () => {
+    const projectLists = document.querySelectorAll('.list-group-item');
+    const currentProjectId = localStorageData.getDataFromLocalStorage('currentProject').id;
+    projectLists.forEach(element => {
+      const elementId = parseInt(element.id.split('-')[1]);
+      if(elementId === currentProjectId){
         element.classList.add('bg-complete');
       }
     });
   };
-  const renderProjectListItem = element => {
+  const setCurrentProject = (targetId) => {
+    const projects = localStorageData.getDataFromLocalStorage('projectsArray');
+    projects.forEach(element => {
+      if (element.id === targetId) {
+        localStorageData.setDataIntoLocalStorage('currentProject', element);    
+      }
+    });
+  };
+  const createProjectListItem = element => {
     const projectList = document.createElement('li');
-    if(element.id == localStorageData.getDataFromLocalStorage('currentProject').id){
-      projectList.classList.add('list-group-item','bg-complete');
-    } else {
-      projectList.classList.add('list-group-item');
-    }
+    projectList.classList.add('list-group-item');
     projectList.setAttribute("id", `project-${element.id}`);
-
+    projectList.addEventListener('click', () =>{
+      setCurrentProject(element.id);
+      disableSelectedProject();
+      highlightCurrentProject();
+    });
     const projectTitle = document.createElement('p');
     projectTitle.classList.add('d-inline');
     projectTitle.innerHTML = element.name;
@@ -37,22 +51,22 @@ const displayProject = (() => {
     projectList.appendChild(deleteIcon);
     return projectList;
   };
-  const clearProjectListView = () => { 
-    document.querySelector('#project-list').innerHTML = '';
-  };
   const renderProject = () => {
-    clearProjectListView();
     const projectsArray = localStorageData.getDataFromLocalStorage('projectsArray');
     if (projectsArray.length > 0){
       const projectListContainter = document.querySelector('#project-list')
       projectsArray.forEach(element => {
-        const appendproject = renderProjectListItem(element);
-        appendproject.addEventListener('click', () => {
-          selectProject(element.id);
-        });
-        projectListContainter.appendChild(renderProjectListItem(element));
+        projectListContainter.appendChild(createProjectListItem(element));
       });
+      disableSelectedProject();
+      highlightCurrentProject();
     }
+  };
+  const appendNewProjectListItem = (newProject) => { 
+    const projectListContainter = document.querySelector('#project-list');
+    projectListContainter.appendChild(createProjectListItem(newProject));
+    disableSelectedProject();
+    highlightCurrentProject(); 
   };
   const addProject = () => {
     const projectsArray = localStorageData.getDataFromLocalStorage('projectsArray');
@@ -64,12 +78,13 @@ const displayProject = (() => {
     localStorageData.setDataIntoLocalStorage('projectsArray', projectsArray);
     localStorageData.setDataIntoLocalStorage('currentProject', newProject);
     localStorageData.setDataIntoLocalStorage('projectCount', projectCount+1);
+    setCurrentProject(projectId);
+    appendNewProjectListItem(newProject);
   };
   const enableProjectAddBtn = () => {
     const addProjectBtn = document.querySelector('#add-project');
     addProjectBtn.addEventListener('click', () => {
-      addProject();
-      renderProject();
+      addProject();    
     });
   };
   const initializeProjectOperation = () =>{
