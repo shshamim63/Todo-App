@@ -37,7 +37,11 @@ const displayProject = (() => {
     projectList.appendChild(deleteIcon);
     return projectList;
   };
+  const clearProjectListView = () => { 
+    document.querySelector('#project-list').innerHTML = '';
+  };
   const renderProject = () => {
+    clearProjectListView();
     const projectsArray = localStorageData.getDataFromLocalStorage('projectsArray');
     if (projectsArray.length > 0){
       const projectListContainter = document.querySelector('#project-list')
