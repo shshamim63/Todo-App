@@ -1,5 +1,6 @@
 import * as localStorageData from '../common/storage.js';
-
+import projectInput from '../projects/projectInput.js'
+import projectController from '../../controllers/projectController.js'
 const displayProject = (() => {
   const selectProject = (targetId) => {
     const projectList = document.querySelectorAll('li');
@@ -49,11 +50,11 @@ const displayProject = (() => {
       });
     }
   };
-  const addProjectBtn = () => {
+  const addProject = () => {
     const projectsArray = localStorageData.getDataFromLocalStorage('projectsArray');
     const projectCount = localStorageData.getDataFromLocalStorage('projectCount');
-    const projectId = projectinput.createProjectId();
-    const projectName = projectinput.getProjectName();
+    const projectId = projectInput.createProjectId();
+    const projectName = projectInput.getProjectName();
     const newProject = projectController.create(projectId, projectName); 
     projectsArray.push(newProject);
     localStorageData.setDataIntoLocalStorage('projectsArray', projectsArray);
@@ -63,7 +64,7 @@ const displayProject = (() => {
   const enableProjectAddBtn = () => {
     const addProjectBtn = document.querySelector('#add-project');
     addProjectBtn.addEventListener('click', () => {
-      addProjectBtn();
+      addProject();
       renderProject();
     });
   };

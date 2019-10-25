@@ -1,10 +1,10 @@
-const projectinput = (() => {
+const projectInput = (() => {
   const createProjectId = () => {
     const projectId = Math.round(Math.random() * 999999999999999999999, 0);
     return projectId;
   };
   const getProjectName = () => {
-    const name = document.querySelector('#project-name').nodeValue;
+    const name = document.querySelector('#project-name').value;
     return name;
   };
   return {
@@ -12,4 +12,4 @@ const projectinput = (() => {
     getProjectName
   };
 })();
-export default projectinput;
+export default projectInput;

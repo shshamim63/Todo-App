@@ -1,5 +1,5 @@
 import * as localStorageData from '../common/storage.js'
-import projectinput from './projectInput.js'
+import projectInput from '../projects/projectInput.js'
 import projectController from '../../controllers/projectController.js'
 
 const projectHelper = (() => {
@@ -15,7 +15,7 @@ const projectHelper = (() => {
     const projectsArray = localStorageData.getDataFromLocalStorage('projectsArray');
     const projectCount = localStorageData.getDataFromLocalStorage('projectCount');
     if (projectCount === 0) {
-      const projectId = projectinput.createProjectId();
+      const projectId = projectInput.createProjectId();
       const defaultProject = projectController.create(projectId, 'Default'); 
       projectsArray.push(defaultProject);
       localStorageData.setDataIntoLocalStorage('projectsArray', projectsArray);
