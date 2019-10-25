@@ -10,13 +10,15 @@ const displayProject = (() => {
   };
   const highlightCurrentProject = () => {
     const projectLists = document.querySelectorAll('.list-group-item');
-    const currentProjectId = localStorageData.getDataFromLocalStorage('currentProject').id;
-    projectLists.forEach(element => {
-      const elementId = parseInt(element.id.split('-')[1]);
-      if(elementId === currentProjectId){
-        element.classList.add('bg-complete');
-      }
-    });
+    if (localStorageData.getDataFromLocalStorage('currentProject') !== null) {
+      const currentProjectId = localStorageData.getDataFromLocalStorage('currentProject').id;
+      projectLists.forEach(element => {
+        const elementId = parseInt(element.id.split('-')[1]);
+        if(elementId === currentProjectId){
+          element.classList.add('bg-complete');
+        }
+      });
+    }
   };
   const setCurrentProject = (targetId) => {
     const projects = localStorageData.getDataFromLocalStorage('projectsArray');
@@ -46,6 +48,9 @@ const displayProject = (() => {
     deleteImage.src = "./assets/images/delete.png";
     deleteImage.classList.add('btn-delete-img');
     deleteImage.setAttribute("id", `projectdelete-${element.id}`);
+    deleteImage.addEventListener('click',()=>{
+      projectController.deleteProject(element.id);
+    });
     deleteIcon.appendChild(deleteImage);
     projectList.appendChild(projectTitle);
     projectList.appendChild(deleteIcon);
@@ -73,7 +78,7 @@ const displayProject = (() => {
     const projectCount = localStorageData.getDataFromLocalStorage('projectCount');
     const projectId = projectInput.createProjectId();
     const projectName = projectInput.getProjectName();
-    const newProject = projectController.create(projectId, projectName); 
+    const newProject = projectController.createProject(projectId, projectName); 
     projectsArray.push(newProject);
     localStorageData.setDataIntoLocalStorage('projectsArray', projectsArray);
     localStorageData.setDataIntoLocalStorage('currentProject', newProject);

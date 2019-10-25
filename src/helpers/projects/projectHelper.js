@@ -16,7 +16,7 @@ const projectHelper = (() => {
     const projectCount = localStorageData.getDataFromLocalStorage('projectCount');
     if (projectCount === 0) {
       const projectId = projectInput.createProjectId();
-      const defaultProject = projectController.create(projectId, 'Default'); 
+      const defaultProject = projectController.createProject(projectId, 'Default'); 
       projectsArray.push(defaultProject);
       localStorageData.setDataIntoLocalStorage('projectsArray', projectsArray);
       localStorageData.setDataIntoLocalStorage('currentProject', defaultProject);
