@@ -28,6 +28,10 @@ const displayProject = (() => {
       }
     });
   };
+  const removeProjectFromProjectList = (targetId) => {
+    const targetProject = document.querySelector(`#project-${targetId}`);
+    targetProject.parentElement.removeChild(targetProject);
+  };
   const createProjectListItem = element => {
     const projectList = document.createElement('li');
     projectList.classList.add('list-group-item');
@@ -50,6 +54,7 @@ const displayProject = (() => {
     deleteImage.setAttribute("id", `projectdelete-${element.id}`);
     deleteImage.addEventListener('click',()=>{
       projectController.deleteProject(element.id);
+      removeProjectFromProjectList(element.id);
     });
     deleteIcon.appendChild(deleteImage);
     projectList.appendChild(projectTitle);
