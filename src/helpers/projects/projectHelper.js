@@ -4,23 +4,26 @@ import projectController from '../../controllers/projectController.js'
 
 const projectHelper = (() => {
   const createProjectsArray = () => {
-    if (localStorageData.getDataFromLocalStorage("projectsArray") === null) {
+    if (localStorageData.getDataFromLocalStorage("projectsArray") === null && localStorageData.getDataFromLocalStorage("initialLoad") === null ) {
       let projectsArray = [];
       localStorageData.setDataIntoLocalStorage("projectsArray", projectsArray);
       localStorageData.setDataIntoLocalStorage("projectCount", 0);
+      localStorageData.setDataIntoLocalStorage("initialLoad", false);
     }
   };
 
   const setDefaultProject = () => {
     const projectsArray = localStorageData.getDataFromLocalStorage('projectsArray');
     const projectCount = localStorageData.getDataFromLocalStorage('projectCount');
-    if (projectCount === 0) {
+    const defaultloaded = localStorageData.getDataFromLocalStorage('initialLoad');
+    if (projectCount === 0 && defaultloaded === false) {
       const projectId = projectInput.createProjectId();
       const defaultProject = projectController.createProject(projectId, 'Default'); 
       projectsArray.push(defaultProject);
       localStorageData.setDataIntoLocalStorage('projectsArray', projectsArray);
       localStorageData.setDataIntoLocalStorage('currentProject', defaultProject);
       localStorageData.setDataIntoLocalStorage('projectCount', projectCount+1);
+      localStorageData.setDataIntoLocalStorage('initialLoad', true);
     }
   };
   return {
