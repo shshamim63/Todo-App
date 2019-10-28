@@ -1,9 +1,9 @@
-const Project = (id,name) => {
-  let todolist = [];
-  return{
-      id,
-      name,
-      todolist
+const Project = (id, name) => {
+  const todolist = [];
+  return {
+    id,
+    name,
+    todolist,
   };
 };
 export default Project;
