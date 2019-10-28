@@ -9,7 +9,7 @@ const projectInput = (() => {
   };
   return {
     createProjectId,
-    getProjectName
+    getProjectName,
   };
 })();
 export default projectInput;

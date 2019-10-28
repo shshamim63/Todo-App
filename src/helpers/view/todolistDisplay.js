@@ -1,4 +1,14 @@
 const todolistDisplay = (() => {
+  const changeCurrentRowView = (targetId) => {
+    const todoRows = document.querySelectorAll('tr');
+    todoRows.forEach((element) => {
+      elementId = parseInt(element.id.split('-')[1], 10);
+      if (elementId === targerId) {
+        todoRows.classList.remove('bg-primary');
+        todoRows.classList.add('bg-success');
+      }
+    });
+  };
   const createTableRow = (todo) => {
     const tableRow = document.createElement('tr');
     tableRow.setAttribute('id', `todolistrow-${todo.id}`);
