@@ -1,11 +1,16 @@
 const todolistDisplay = (() => {
-  const changeCurrentRowView = (targetId) => {
+  const changeCurrentRowView = (targetId, currentStatus) => {
     const todoRows = document.querySelectorAll('tr');
     todoRows.forEach((element) => {
       elementId = parseInt(element.id.split('-')[1], 10);
-      if (elementId === targerId) {
-        todoRows.classList.remove('bg-primary');
-        todoRows.classList.add('bg-success');
+      if (elementId === targetId) {
+        if (currentStatus === true) {
+          todoRows.classList.remove('bg-primary');
+          todoRows.classList.add('bg-success');  
+        } else {
+          todoRows.classList.remove('bg-primary');
+          todoRows.classList.add('bg-primary');
+        }
       }
     });
   };
@@ -30,8 +35,8 @@ const todolistDisplay = (() => {
       statusCheckbox.setAttribute("value", todo.status);
     }
     statusCheckbox.addEventListener('change', () => {
-      changeCurrentRowView(todo.id);
       todo.status = !todo.status;
+      changeCurrentRowView(todo.id, todo.status);
       updateTodo(todo);
     });
   };
