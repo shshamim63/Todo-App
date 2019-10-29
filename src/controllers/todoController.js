@@ -2,15 +2,9 @@ import * as localStorageData from '../helpers/common/storage.js';
 import Todo from '../model/todolist.js';
 
 const todoController = (() => {
-  const creteTodo = (id, title, description, time, priority, status) => {
-    const todo = new Todo(id, title, description, time, priority, status);
-    const parentProject = localStorageData.getDataFromLocalStorage('currentProject');
-    parentProject.todo.push(todo);
-    const projectArray = localStorageData.getDataFromLocalStorage('projectsArray');
-    const index = projectArray.findIndex((x) => x.id === parentProject.id);
-    projectArray[index] = parentProject;
-    localStorageData.setDataIntoLocalStorage('projectsArray', projectArray);
-    localStorageData.setDataIntoLocalStorage('currentProject', parentProject);
+  const createTodo = (id, title, description, time, priority, status) => {
+    const todo = Todo(id, title, description, time, priority, status);
+    return todo;
   };
   const updateTodo = (modified) => {
     const parentProject = localStorageData.getDataFromLocalStorage('currentProject');
@@ -35,6 +29,11 @@ const todoController = (() => {
     projectArray[index] = parentProject;
     localStorageData.setDataIntoLocalStorage('projectsArray', projectArray);
     localStorageData.setDataIntoLocalStorage('currentProject', parentProject);
+  };
+  return {
+    createTodo,
+    updateTodo,
+    deletetodo,
   };
 })();
 export default todoController;
