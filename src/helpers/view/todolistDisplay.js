@@ -1,5 +1,6 @@
 import * as localStorage from '../common/storage.js';
 import todoController from '../../controllers/todoController.js';
+import todoInput from '../todos/todoInput.js';
 
 const todolistDisplay = (() => {
   const changeCurrentRowView = (targetId, currentStatus) => {
@@ -60,6 +61,10 @@ const todolistDisplay = (() => {
     todoPriorityContainer.innerText = todo.priority;
     return todoPriorityContainer;
   };
+  const removeFromTodoList = (id) => {
+    const todoList = document.querySelector(`todolistrow-${id}`);
+    todoList.parentNode.removeChild(todoList);
+  };
   const createDeleteImage = (targetID) => {
     const editImageContainer = document.createElement('img');
     editImageContainer.setAttribute('src', './assets/images/edit.png');
@@ -68,8 +73,8 @@ const todolistDisplay = (() => {
     editImageContainer.setAttribute('data-toggle', 'modal');
     editImageContainer.setAttribute('data-target', '#exampleModal3');
     editImageContainer.addEventListener('click', () => {
-      // deleteTodo(targetID);
-      // removeFromTodoList(targetID);
+      todoController.deleteTodo(targetID);
+      removeFromTodoList(targetID);
     });
   };
   const createEditImage = (target) => {
@@ -79,7 +84,9 @@ const todolistDisplay = (() => {
     editImageContainer.classList.add('todo-edit-img');
     editImageContainer.setAttribute('data-toggle', 'modal');
     editImageContainer.setAttribute('data-target', '#exampleModal3');
-    // loadEditModal(target);
+    editImageContainer.addEventListener('click', () => {
+      todoInput.loadtodoeditform(target);
+    });
   };
   const creteTodoAction = (todo) => {
     const todoActionContainer = document.createElement('td');
@@ -112,6 +119,9 @@ const todolistDisplay = (() => {
         todoListContainer.appendChild(createTodoListItem(element));
       });
     }
+  };
+  return {
+    renderTodo,
   };
 })();
 export default todolistDisplay;
