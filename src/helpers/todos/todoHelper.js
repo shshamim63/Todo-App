@@ -20,8 +20,18 @@ const todoHelper = (() => {
       localStorageData.setDataIntoLocalStorage('currentProject', parentProject);
     });
   };
+  const enableTodolistSection = () => {
+    const todoPortionContainer = document.querySelector('#todolistsection');
+    todoPortionContainer.classList.remove('d-none');
+  };
+  const disableTodolistSection = () => {
+    const todoPortionContainer = document.querySelector('#todolistsection');
+    todoPortionContainer.classList.add('d-none');
+  };
   return {
     enableCreateTodoButton,
+    enableTodolistSection,
+    disableTodolistSection,
   };
 })();
 export default todoHelper;

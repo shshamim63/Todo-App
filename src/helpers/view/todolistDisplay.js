@@ -1,18 +1,16 @@
+import * as localStorage from '../common/storage.js';
+import todoController from '../../controllers/todoController.js';
+
 const todolistDisplay = (() => {
   const changeCurrentRowView = (targetId, currentStatus) => {
-    const todoRows = document.querySelectorAll('tr');
-    todoRows.forEach((element) => {
-      const elementId = parseInt(element.id.split('-')[1], 10);
-      if (elementId === targetId) {
-        if (currentStatus === true) {
-          todoRows.classList.remove('bg-primary');
-          todoRows.classList.add('bg-success');
-        } else {
-          todoRows.classList.remove('bg-primary');
-          todoRows.classList.add('bg-primary');
-        }
-      }
-    });
+    const todoRows = document.querySelector(`todolistrow-${targetId}`);
+    if (currentStatus === true) {
+      todoRows.classList.remove('bg-primary');
+      todoRows.classList.add('bg-success');
+    } else {
+      todoRows.classList.remove('bg-primary');
+      todoRows.classList.add('bg-primary');
+    }
   };
   const createTableRow = (todo) => {
     const tableRow = document.createElement('tr');
@@ -37,7 +35,7 @@ const todolistDisplay = (() => {
     statusCheckbox.addEventListener('change', () => {
       todo.status = !todo.status;
       changeCurrentRowView(todo.id, todo.status);
-      updateTodo(todo);
+      todoController.updateTodo(todo);
     });
     return statusCheckboxContainer.appendChild(statusCheckbox);
   };
@@ -70,8 +68,8 @@ const todolistDisplay = (() => {
     editImageContainer.setAttribute('data-toggle', 'modal');
     editImageContainer.setAttribute('data-target', '#exampleModal3');
     editImageContainer.addEventListener('click', () => {
-      deleteTodo(targetID);
-      removeFromTodoList(targetID);
+      // deleteTodo(targetID);
+      // removeFromTodoList(targetID);
     });
   };
   const createEditImage = (target) => {
@@ -81,14 +79,16 @@ const todolistDisplay = (() => {
     editImageContainer.classList.add('todo-edit-img');
     editImageContainer.setAttribute('data-toggle', 'modal');
     editImageContainer.setAttribute('data-target', '#exampleModal3');
-    loadEditModal(target);
+    // loadEditModal(target);
   };
   const creteTodoAction = (todo) => {
     const todoActionContainer = document.createElement('td');
     const deleteImage = createDeleteImage(todo.id);
     const editImage = createEditImage(todo);
+    todoActionContainer.appendChild(deleteImage);
+    todoActionContainer.appendChild(editImage);
   };
-  const renderEachTodoList = (todo) => {
+  const createTodoListItem = (todo) => {
     const tableRow = createTableRow(todo);
     const checkboxElement = createCheckbox(todo);
     const todoTitle = createTodoTitleContainer(todo);
@@ -96,5 +96,22 @@ const todolistDisplay = (() => {
     const todoDate = createTodoDate(todo);
     const todoPriority = createTodoPriority(todo);
     const todoAction = creteTodoAction(todo);
+    tableRow.appendChild(checkboxElement);
+    tableRow.appendChild(todoTitle);
+    tableRow.appendChild(todoDescription);
+    tableRow.appendChild(todoDate);
+    tableRow.appendChild(todoPriority);
+    tableRow.appendChild(todoAction);
+    return tableRow;
+  };
+  const renderTodo = () => {
+    const currentTodolist = localStorage.getDataFromLocalStorage('currentProject').todolist;
+    if (currentTodolist.length > 0) {
+      const todoListContainer = document.querySelector('#todo-container');
+      currentTodolist.forEach((element) => {
+        todoListContainer.appendChild(createTodoListItem(element));
+      });
+    }
   };
 })();
+export default todolistDisplay;

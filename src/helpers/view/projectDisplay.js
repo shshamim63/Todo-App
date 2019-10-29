@@ -1,6 +1,8 @@
 import * as localStorageData from '../common/storage.js';
 import projectInput from '../projects/projectInput.js';
 import projectController from '../../controllers/projectController.js';
+import todoHelper from '../todos/todoHelper.js';
+import todolistDisplay from './todolistDisplay.js';
 
 const displayProject = (() => {
   const disableSelectedProject = () => {
@@ -28,6 +30,7 @@ const displayProject = (() => {
         localStorageData.setDataIntoLocalStorage('currentProject', element);
       }
     });
+    todolistDisplay.renderTodo();
   };
   const removeProjectFromProjectList = (targetId) => {
     const targetProject = document.querySelector(`#project-${targetId}`);
@@ -54,8 +57,12 @@ const displayProject = (() => {
     deleteImage.classList.add('btn-delete-img');
     deleteImage.setAttribute('id', `projectdelete-${element.id}`);
     deleteImage.addEventListener('click', () => {
+      const currentProjectId = localStorageData.getDataFromLocalStorage('currentProject').id;
       projectController.deleteProject(element.id);
       removeProjectFromProjectList(element.id);
+      if (currentProjectId === element.id) {
+        todoHelper.disableTodolistSection();
+      }
     });
     deleteIcon.appendChild(deleteImage);
     projectList.appendChild(projectTitle);
