@@ -84,7 +84,7 @@ const todolistDisplay = (() => {
     todoRows[1].innerText = target.title;
     todoRows[2].innerText = target.description;
     todoRows[3].innerText = target.time;
-    todoRows[4].innerText = target.status;
+    todoRows[4].innerText = target.priority;
   };
   const enableEditButton = (target) => {
     const editButton = document.querySelector('#edit-todo');

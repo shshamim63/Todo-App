@@ -10,6 +10,7 @@ const todoHelper = (() => {
       const {
         id, title, description, date, priority,
       } = todoInput.getTodoInfo();
+      document.querySelector('#todo-form').reset();
       const newTodo = todoController.createTodo(id, title, description, date, priority, false);
       const parentProject = localStorageData.getDataFromLocalStorage('currentProject');
       parentProject.todolist.push(newTodo);

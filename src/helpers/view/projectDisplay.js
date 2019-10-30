@@ -102,6 +102,7 @@ const displayProject = (() => {
     localStorageData.setDataIntoLocalStorage('projectCount', projectCount + 1);
     setCurrentProject(projectId);
     appendNewProjectListItem(newProject);
+    document.querySelector('#project-form').reset();
   };
   const enableProjectAddBtn = () => {
     const addProjectBtn = document.querySelector('#add-project');
