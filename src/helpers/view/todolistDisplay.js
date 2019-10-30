@@ -4,7 +4,8 @@ import todoInput from '../todos/todoInput.js';
 
 const todolistDisplay = (() => {
   const changeCurrentRowView = (targetId, currentStatus) => {
-    const todoRows = document.querySelector(`todolistrow-${targetId}`);
+    const todoRows = document.querySelector(`#todolistrow-${targetId}`);
+    console.log(targetId);
     if (currentStatus === true) {
       todoRows.classList.remove('bg-primary');
       todoRows.classList.add('bg-success');
@@ -21,16 +22,17 @@ const todolistDisplay = (() => {
     } else {
       tableRow.classList.add('bg-primary');
     }
+    return tableRow;
   };
   const createCheckbox = (todo) => {
     const statusCheckboxContainer = document.createElement('td');
     const statusCheckbox = document.createElement('input');
     statusCheckbox.setAttribute('type', 'checkbox');
     if (todo.status) {
-      statusCheckbox.setAttribute('checked', true);
+      statusCheckbox.checked = true;
       statusCheckbox.setAttribute('value', todo.status);
     } else {
-      statusCheckbox.setAttribute('checked', false);
+      statusCheckbox.checked = false;
       statusCheckbox.setAttribute('value', todo.status);
     }
     statusCheckbox.addEventListener('change', () => {
@@ -38,7 +40,8 @@ const todolistDisplay = (() => {
       changeCurrentRowView(todo.id, todo.status);
       todoController.updateTodo(todo);
     });
-    return statusCheckboxContainer.appendChild(statusCheckbox);
+    statusCheckboxContainer.appendChild(statusCheckbox);
+    return statusCheckboxContainer;
   };
   const createTodoTitleContainer = (todo) => {
     const todoTitleContainer = document.createElement('th');
@@ -67,15 +70,14 @@ const todolistDisplay = (() => {
   };
   const createDeleteImage = (targetID) => {
     const editImageContainer = document.createElement('img');
-    editImageContainer.setAttribute('src', './assets/images/edit.png');
-    editImageContainer.setAttribute('alt', 'edit image');
-    editImageContainer.classList.add('todo-edit-img');
-    editImageContainer.setAttribute('data-toggle', 'modal');
-    editImageContainer.setAttribute('data-target', '#exampleModal3');
+    editImageContainer.setAttribute('src', './assets/images/delete.png');
+    editImageContainer.setAttribute('alt', 'delete image');
+    editImageContainer.classList.add('todo-delete-img');
     editImageContainer.addEventListener('click', () => {
       todoController.deleteTodo(targetID);
       removeFromTodoList(targetID);
     });
+    return editImageContainer;
   };
   const createEditImage = (target) => {
     const editImageContainer = document.createElement('img');
@@ -86,7 +88,9 @@ const todolistDisplay = (() => {
     editImageContainer.setAttribute('data-target', '#exampleModal3');
     editImageContainer.addEventListener('click', () => {
       todoInput.loadtodoeditform(target);
+      // edit function will be enabled here
     });
+    return editImageContainer;
   };
   const creteTodoAction = (todo) => {
     const todoActionContainer = document.createElement('td');
@@ -94,6 +98,7 @@ const todolistDisplay = (() => {
     const editImage = createEditImage(todo);
     todoActionContainer.appendChild(deleteImage);
     todoActionContainer.appendChild(editImage);
+    return todoActionContainer;
   };
   const createTodoListItem = (todo) => {
     const tableRow = createTableRow(todo);
@@ -111,8 +116,26 @@ const todolistDisplay = (() => {
     tableRow.appendChild(todoAction);
     return tableRow;
   };
+  const appendTodoList = (newTodo) => {
+    const newRow = createTodoListItem(newTodo);
+    document.querySelector('#todo-container').appendChild(newRow);
+  };
+  const disableTodolist = () => {
+    const emptyDialogue = document.querySelector('#emptyselector');
+    emptyDialogue.classList.remove('d-none');
+    const todolistsection = document.querySelector('#todolistsection');
+    todolistsection.classList.add('d-none');
+  };
   const renderTodo = () => {
-    const currentTodolist = localStorage.getDataFromLocalStorage('currentProject').todolist;
+    const emptyDialogue = document.querySelector('#emptyselector');
+    emptyDialogue.classList.add('d-none');
+    const todolistsection = document.querySelector('#todolistsection');
+    todolistsection.classList.remove('d-none');
+    const projectHeader = document.querySelector('#project-name-enable');
+    const currentProject = localStorage.getDataFromLocalStorage('currentProject');
+    projectHeader.innerHTML = currentProject.name;
+    const currentTodolist = currentProject.todolist;
+    document.querySelector('#todo-container').innerHTML = '';
     if (currentTodolist.length > 0) {
       const todoListContainer = document.querySelector('#todo-container');
       currentTodolist.forEach((element) => {
@@ -122,6 +145,8 @@ const todolistDisplay = (() => {
   };
   return {
     renderTodo,
+    disableTodolist,
+    appendTodoList,
   };
 })();
 export default todolistDisplay;

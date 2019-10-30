@@ -10,15 +10,18 @@ const displayProject = (() => {
     projectLists.forEach((element) => {
       element.classList.remove('bg-complete');
     });
+    todolistDisplay.disableTodolist();
   };
   const highlightCurrentProject = () => {
     const projectLists = document.querySelectorAll('.list-group-item');
-    if (localStorageData.getDataFromLocalStorage('currentProject') !== null) {
-      const currentProjectId = localStorageData.getDataFromLocalStorage('currentProject').id;
+    const currentProject = localStorageData.getDataFromLocalStorage('currentProject');
+    if (currentProject !== null) {
+      const currentProjectId = currentProject.id;
       projectLists.forEach((element) => {
         const elementId = parseInt(element.id.split('-')[1], 10);
         if (elementId === currentProjectId) {
           element.classList.add('bg-complete');
+          todolistDisplay.renderTodo();
         }
       });
     }
@@ -30,7 +33,6 @@ const displayProject = (() => {
         localStorageData.setDataIntoLocalStorage('currentProject', element);
       }
     });
-    todolistDisplay.renderTodo();
   };
   const removeProjectFromProjectList = (targetId) => {
     const targetProject = document.querySelector(`#project-${targetId}`);
@@ -61,7 +63,7 @@ const displayProject = (() => {
       projectController.deleteProject(element.id);
       removeProjectFromProjectList(element.id);
       if (currentProjectId === element.id) {
-        todoHelper.disableTodolistSection();
+        todolistDisplay.disableTodolist();
       }
     });
     deleteIcon.appendChild(deleteImage);
@@ -78,6 +80,8 @@ const displayProject = (() => {
       });
       disableSelectedProject();
       highlightCurrentProject();
+    } else {
+      todolistDisplay.disableTodolist();
     }
   };
   const appendNewProjectListItem = (newProject) => {

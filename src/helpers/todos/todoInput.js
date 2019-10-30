@@ -1,3 +1,4 @@
+// import * as dateFns from 'date-fns';
 import * as localStorage from '../common/storage.js';
 
 const todoInput = (() => {
@@ -15,19 +16,20 @@ const todoInput = (() => {
       priority,
     };
   };
-  const loadform = (target) => {
+  const loadform = (todo) => {
     const title = document.querySelector('#edit-todo-title');
-    title.value = target.title;
+    title.value = todo.title;
     const description = document.querySelector('#edit-todo-description');
-    description.value = target.description;
+    description.value = todo.description;
     const date = document.querySelector('#edit-todo-date');
-    /* need to load the date */
+    // date.value = dateFns.format(new Date(target.time), 'YYYY-MM-DD');
   };
   const loadtodoeditform = (target) => {
     const currentProjectTodos = localStorage.getDataFromLocalStorage('currentProject').todolist;
+    let loadElement;
     currentProjectTodos.forEach((element) => {
-      if (element.id === target) {
-        const loadElement = element;
+      if (element.id === target.id) {
+        loadElement = element;
       }
     });
     loadform(loadElement);
