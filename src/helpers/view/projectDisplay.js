@@ -1,7 +1,6 @@
 import * as localStorageData from '../common/storage.js';
 import projectInput from '../projects/projectInput.js';
 import projectController from '../../controllers/projectController.js';
-import todoHelper from '../todos/todoHelper.js';
 import todolistDisplay from './todolistDisplay.js';
 
 const displayProject = (() => {

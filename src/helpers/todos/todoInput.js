@@ -33,7 +33,7 @@ const todoInput = (() => {
     title.value = todo.title;
     const description = document.querySelector('#edit-todo-description');
     description.value = todo.description;
-    const date = document.querySelector('#edit-todo-date');
+    // const date = document.querySelector('#edit-todo-date');
     // date.value = dateFns.format(new Date(target.time), 'YYYY-MM-DD');
   };
   const loadtodoeditform = (target) => {
