@@ -5,12 +5,12 @@ import todoInput from '../todos/todoInput.js';
 const todolistDisplay = (() => {
   const changeCurrentRowView = (targetId, currentStatus) => {
     const todoRows = document.querySelector(`#todolistrow-${targetId}`);
-    console.log(targetId);
+    console.log(todoRows);
     if (currentStatus === true) {
       todoRows.classList.remove('bg-primary');
       todoRows.classList.add('bg-success');
     } else {
-      todoRows.classList.remove('bg-primary');
+      todoRows.classList.remove('bg-success');
       todoRows.classList.add('bg-primary');
     }
   };
@@ -65,7 +65,7 @@ const todolistDisplay = (() => {
     return todoPriorityContainer;
   };
   const removeFromTodoList = (id) => {
-    const todoList = document.querySelector(`todolistrow-${id}`);
+    const todoList = document.querySelector(`#todolistrow-${id}`);
     todoList.parentNode.removeChild(todoList);
   };
   const createDeleteImage = (targetID) => {
@@ -79,6 +79,27 @@ const todolistDisplay = (() => {
     });
     return editImageContainer;
   };
+  const updateCurrentRowValue = (target) => {
+    const todoRows = document.querySelector(`#todolistrow-${target.id}`).childNodes;
+    todoRows[1].innerText = target.title;
+    todoRows[2].innerText = target.description;
+    todoRows[3].innerText = target.time;
+    todoRows[4].innerText = target.status;
+  };
+  const enableEditButton = (target) => {
+    const editButton = document.querySelector('#edit-todo');
+    editButton.addEventListener('click', () => {
+      const {
+        title, description, date, priority,
+      } = todoInput.getEditData();
+      target.title = title;
+      target.description = description;
+      target.time = date;
+      target.priority = priority;
+      todoController.updateTodo(target);
+      updateCurrentRowValue(target);
+    });
+  };
   const createEditImage = (target) => {
     const editImageContainer = document.createElement('img');
     editImageContainer.setAttribute('src', './assets/images/edit.png');
@@ -89,6 +110,7 @@ const todolistDisplay = (() => {
     editImageContainer.addEventListener('click', () => {
       todoInput.loadtodoeditform(target);
       // edit function will be enabled here
+      enableEditButton(target);
     });
     return editImageContainer;
   };

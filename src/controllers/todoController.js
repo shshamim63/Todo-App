@@ -8,17 +8,18 @@ const todoController = (() => {
   };
   const updateTodo = (modified) => {
     const parentProject = localStorageData.getDataFromLocalStorage('currentProject');
-    const todoindex = parentProject.todo.findIndex((x) => x.id === modified.id);
-    parentProject.todo[todoindex] = modified;
+    const todoindex = parentProject.todolist.findIndex((x) => x.id === modified.id);
+    console.log(todoindex);
+    parentProject.todolist[todoindex] = modified;
     const projectArray = localStorageData.getDataFromLocalStorage('projectsArray');
     const index = projectArray.findIndex((x) => x.id === parentProject.id);
     projectArray[index] = parentProject;
     localStorageData.setDataIntoLocalStorage('projectsArray', projectArray);
     localStorageData.setDataIntoLocalStorage('currentProject', parentProject);
   };
-  const deletetodo = (targetId) => {
+  const deleteTodo = (targetId) => {
     const parentProject = localStorageData.getDataFromLocalStorage('currentProject');
-    const oldTodoList = parentProject.todo;
+    const oldTodoList = parentProject.todolist;
     const todoindex = oldTodoList.findIndex((x) => x.id === targetId);
     if (todoindex > -1) {
       oldTodoList.splice(todoindex, 1);
@@ -33,7 +34,7 @@ const todoController = (() => {
   return {
     createTodo,
     updateTodo,
-    deletetodo,
+    deleteTodo,
   };
 })();
 export default todoController;
