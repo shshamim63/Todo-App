@@ -109,7 +109,6 @@ const todolistDisplay = (() => {
     editImageContainer.setAttribute('data-target', '#exampleModal3');
     editImageContainer.addEventListener('click', () => {
       todoInput.loadtodoeditform(target);
-      // edit function will be enabled here
       enableEditButton(target);
     });
     return editImageContainer;
