@@ -54,7 +54,7 @@ const displayProject = (() => {
     deleteIcon.classList.add('float-right', 'btn-delete');
 
     const deleteImage = document.createElement('img');
-    deleteImage.src = './assets/images/delete.png';
+    deleteImage.src = './assets/delete.png';
     deleteImage.classList.add('btn-delete-img');
     deleteImage.setAttribute('id', `projectdelete-${element.id}`);
     deleteImage.addEventListener('click', () => {

@@ -70,7 +70,7 @@ const todolistDisplay = (() => {
   };
   const createDeleteImage = (targetID) => {
     const editImageContainer = document.createElement('img');
-    editImageContainer.setAttribute('src', './assets/images/delete.png');
+    editImageContainer.setAttribute('src', './assets/delete.png');
     editImageContainer.setAttribute('alt', 'delete image');
     editImageContainer.classList.add('todo-delete-img');
     editImageContainer.addEventListener('click', () => {
@@ -102,7 +102,7 @@ const todolistDisplay = (() => {
   };
   const createEditImage = (target) => {
     const editImageContainer = document.createElement('img');
-    editImageContainer.setAttribute('src', './assets/images/edit.png');
+    editImageContainer.setAttribute('src', './assets/edit.png');
     editImageContainer.setAttribute('alt', 'edit image');
     editImageContainer.classList.add('todo-edit-img');
     editImageContainer.setAttribute('data-toggle', 'modal');
