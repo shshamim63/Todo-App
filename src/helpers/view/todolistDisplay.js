@@ -1,11 +1,12 @@
 import * as localStorage from '../common/storage.js';
 import todoController from '../../controllers/todoController.js';
 import todoInput from '../todos/todoInput.js';
+import editimage from '../../assets/edit.png';
+import deleteimage from '../../assets/delete.png';
 
 const todolistDisplay = (() => {
   const changeCurrentRowView = (targetId, currentStatus) => {
     const todoRows = document.querySelector(`#todolistrow-${targetId}`);
-    console.log(todoRows);
     if (currentStatus === true) {
       todoRows.classList.remove('bg-primary');
       todoRows.classList.add('bg-success');
@@ -70,7 +71,7 @@ const todolistDisplay = (() => {
   };
   const createDeleteImage = (targetID) => {
     const editImageContainer = document.createElement('img');
-    editImageContainer.setAttribute('src', './assets/delete.png');
+    editImageContainer.setAttribute('src', deleteimage);
     editImageContainer.setAttribute('alt', 'delete image');
     editImageContainer.classList.add('todo-delete-img');
     editImageContainer.addEventListener('click', () => {
@@ -102,7 +103,7 @@ const todolistDisplay = (() => {
   };
   const createEditImage = (target) => {
     const editImageContainer = document.createElement('img');
-    editImageContainer.setAttribute('src', './assets/edit.png');
+    editImageContainer.setAttribute('src', editimage);
     editImageContainer.setAttribute('alt', 'edit image');
     editImageContainer.classList.add('todo-edit-img');
     editImageContainer.setAttribute('data-toggle', 'modal');

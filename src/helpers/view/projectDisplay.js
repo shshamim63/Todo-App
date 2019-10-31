@@ -2,6 +2,7 @@ import * as localStorageData from '../common/storage.js';
 import projectInput from '../projects/projectInput.js';
 import projectController from '../../controllers/projectController.js';
 import todolistDisplay from './todolistDisplay.js';
+import imageDelete from '../../assets/delete.png';
 
 const displayProject = (() => {
   const disableSelectedProject = () => {
@@ -54,7 +55,7 @@ const displayProject = (() => {
     deleteIcon.classList.add('float-right', 'btn-delete');
 
     const deleteImage = document.createElement('img');
-    deleteImage.src = './assets/delete.png';
+    deleteImage.src = imageDelete;
     deleteImage.classList.add('btn-delete-img');
     deleteImage.setAttribute('id', `projectdelete-${element.id}`);
     deleteImage.addEventListener('click', () => {
