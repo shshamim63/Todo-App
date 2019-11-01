@@ -9,7 +9,6 @@ const todoController = (() => {
   const updateTodo = (modified) => {
     const parentProject = localStorageData.getDataFromLocalStorage('currentProject');
     const todoindex = parentProject.todolist.findIndex((x) => x.id === modified.id);
-    console.log(todoindex);
     parentProject.todolist[todoindex] = modified;
     const projectArray = localStorageData.getDataFromLocalStorage('projectsArray');
     const index = projectArray.findIndex((x) => x.id === parentProject.id);
