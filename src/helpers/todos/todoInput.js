@@ -1,4 +1,4 @@
-// import * as dateFns from 'date-fns';
+import * as dateFns from 'date-fns';
 import * as localStorage from '../common/storage.js';
 
 const todoInput = (() => {
@@ -33,8 +33,8 @@ const todoInput = (() => {
     title.value = todo.title;
     const description = document.querySelector('#edit-todo-description');
     description.value = todo.description;
-    // const date = document.querySelector('#edit-todo-date');
-    // date.value = dateFns.format(new Date(target.time), 'YYYY-MM-DD');
+    const date = document.querySelector('#edit-todo-date');
+    date.value = dateFns.format(new Date(todo.time), 'yyyy-MM-dd');
   };
   const loadtodoeditform = (target) => {
     const currentProjectTodos = localStorage.getDataFromLocalStorage('currentProject').todolist;
