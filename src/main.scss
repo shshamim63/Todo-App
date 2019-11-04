@@ -1,0 +1,62 @@
+@import '~bootstrap/scss/bootstrap';
+$light-yellow: #f7f55c;
+$light-green: #00ff84;
+$header-color: #5e5a4c;
+body { 
+  background: url(./assets/homepage.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.header {
+  height: 15vh;
+  // background-color: $header-color;
+}
+
+.header-text {
+  padding-top: 1vh;
+  font-family: 'Zhi Mang Xing', cursive;
+  font-size: 10vh;
+}
+
+.project-list {
+  height: 60vh;
+  overflow:auto;
+}
+
+.todo-list {
+  height: 60vh;
+  overflow:auto;
+}
+
+.btn-delete {
+  width: 15%;
+  margin: auto;
+}
+
+.btn-delete-img {
+  width: 50%;
+  height: 50%;
+  margin-left: 60%;
+}
+
+.todo-delete-img {
+  height: 5%;
+}
+
+.todo-edit-img {
+  height: 10%;
+}
+
+.bg-complete {
+  background-color: $light-yellow;
+}
+
+.bg-incomplete {
+  background-color: $light-green;
+}
+
+.card { background-color: rgba(245, 245, 245, 0.4); }
+.card-header, .card-footer { opacity: 1}
