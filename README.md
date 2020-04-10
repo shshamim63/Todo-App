@@ -11,6 +11,7 @@
 - [Background](#background)
 - [Install](#install)
 - [Usage](#usage)
+- [Live](#live)
 - [Maintainers](#maintainers)
 - [Contributing](#contributing)
 - [License](#license)
@@ -30,7 +31,11 @@
 1. Clone the repository: `git clone git@github.com:shshamim63/Todo-App.git`
 2. Enter into the folder: `cd Todo-App`
 3. Run `npm start` to start the development server. It will automatically open the page in your default browser.
-4. Run `npm run build` to get a deployable version.
+4. Run `npm run build` to get a minimized deployable version.
+
+## Live
+
+You can see the live version in [here](https://generate-todo.netlify.com/).
 
 ## Maintainers
 
