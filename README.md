@@ -13,6 +13,7 @@
 - [Install](#install)
 - [Usage](#usage)
 - [Live](#live)
+- [Potential Future Feature](#potential-future-feature)
 - [Maintainers](#maintainers)
 - [Contributing](#contributing)
 - [License](#license)
@@ -37,6 +38,11 @@
 ## Live
 
 You can see the live version in [here](https://generate-todo.netlify.com/).
+
+## Potential Future Feature
+
+- Improve User Interface.
+- Implement serverside operation to store user data.
 
 ## Maintainers
 
